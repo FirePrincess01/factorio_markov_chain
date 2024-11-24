@@ -158,13 +158,13 @@ jobs:
         name: factorio_markov_chain-${{ matrix.TARGET }}${{ matrix.EXTENSION }}
         path: factorio_markov_chain-${{ matrix.TARGET }}${{ matrix.EXTENSION }}
 
-    - uses: svenstaro/upload-release-action@v2
-      name: Upload binaries to release
-      if: ${{ github.event_name == 'push' }}
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: factorio_markov_chain-${{ matrix.TARGET }}${{ matrix.EXTENSION }}
-        asset_name: factorio_markov_chain-${{ matrix.TARGET }}${{ matrix.EXTENSION }}
-        tag: ${{ github.ref }}
-        prerelease: ${{ !startsWith(github.ref, 'refs/tags/') }}
-        overwrite: true
+    # - uses: svenstaro/upload-release-action@v2
+    #   name: Upload binaries to release
+    #   if: ${{ github.event_name == 'push' }}
+    #   with:
+    #     repo_token: ${{ secrets.GITHUB_TOKEN }}
+    #     file: factorio_markov_chain-${{ matrix.TARGET }}${{ matrix.EXTENSION }}
+    #     asset_name: factorio_markov_chain-${{ matrix.TARGET }}${{ matrix.EXTENSION }}
+    #     tag: ${{ github.ref }}
+    #     prerelease: ${{ !startsWith(github.ref, 'refs/tags/') }}
+    #     overwrite: true
