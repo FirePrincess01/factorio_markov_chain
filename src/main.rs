@@ -18,7 +18,7 @@ fn main() -> eframe::Result {
         ..Default::default()
     };
     eframe::run_native(
-        "eframe template",
+        "Factorio Markov Chain Quality Calculator",
         native_options,
         Box::new(|cc| {
             Ok(Box::new(
