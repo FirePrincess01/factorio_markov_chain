@@ -8,9 +8,9 @@ pub struct FactorioMarkovChainApp {
     // Example stuff:
     label: String,
 
-    // #[serde(skip)] // This how you opt-out of serialization of a field
     value: f32,
-
+    
+    #[serde(skip)] // This how you opt-out of serialization of a field
     ui_controller: ui::controller::Controller,
 }
 

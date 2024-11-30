@@ -8,6 +8,7 @@ mod upcycle_loop;
 mod color_palette;
 
 pub use bar_chart::*;
+pub use upcycle_loop::*;
 use egui::{Color32, RichText};
 
 /// Creates the top heading of the application
