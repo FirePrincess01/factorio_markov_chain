@@ -1,9 +1,13 @@
+//! recycling_loop
+//! 
+//! Represents a Quality Grinding loop, which involves repeatedly crafting and recycling a recipe until a desired quality is reached.
+
 use nalgebra::{RowVector5, SMatrix, Vector5};
 
 use super::matrix_generator::{crafting_matrix, recycling_matrix};
 type Matrix10 = SMatrix<f64, 10, 10>;
 type Vector10 = SMatrix<f64, 10, 1>;
-/// Represents Quality Grinding loop, which involves repeatedly crafting and recycling a recipy until a desired quality is reached.
+
 pub struct RecyclingLoop {
     pub markov_loop: Matrix10,
     pub limit_loop: Matrix10,
@@ -15,8 +19,8 @@ impl RecyclingLoop {
         recycling_quality: f64,
         crafting_quality: f64,
         productivity: f64,
-        max_quality: usize,
         stop_at_product: bool,
+        max_quality: usize,
     ) -> Self {
         let mut markov_loop = Matrix10::zeros();
         let recycle = recycling_matrix(recycling_quality, max_quality);
@@ -36,7 +40,7 @@ impl RecyclingLoop {
             }
         }
 
-        // This could be looped
+        // This could be iterated over several outputs.
         let target_index = if stop_at_product { 9 } else { 4 };
         markov_loop.fill_column(target_index, 0.);
         markov_loop[(target_index, target_index)] = 1.;
@@ -71,6 +75,10 @@ impl RecyclingLoop {
         return terminal_distribution[(self.target_index,0)];
     }
 
+    /// Calculates the needed crafting speed for each step for a given input.
+    /// input is a quality distribution over the 5 quality levels.
+    /// is_ingredient determines wether ingredients or the product is fed to the loop
+    /// A 1 in the input is the rate the input is produced/consumed by one crafting machine of speed 1
     pub fn calculate_load(&self, input: Vector5<f64>, is_ingredient: bool) -> (Vector5<f64>, f64) {
         let shift_index = if is_ingredient { 0 } else { 5 };
         const ERROR_TOLERANCE:f64 = 0.0001;
@@ -85,7 +93,8 @@ impl RecyclingLoop {
         }
 
         let mut crafting_load = Vector5::<f64>::zeros();
-        let to_recycle = RowVector5::<f64>::new(1., 1., 1., 1., if self.target_index == 5 { 1. } else { 0. });
+        // Dont recycle the legendary product
+        let to_recycle = RowVector5::<f64>::new(1., 1., 1., 1., if self.target_index == 9 { 0. } else { 1. });
         let mut recycling_load = 0.;
         for _ in 1..MAX_LOOPS {
             crafting_load += input_expanded.view_mut((0, 0), (5, 1));
@@ -96,6 +105,11 @@ impl RecyclingLoop {
             if remainder < ERROR_TOLERANCE {
                 break;
             }
+        }
+
+        // Dont craft, if we keep legendary ingredients.
+        if self.target_index == 4 {
+            crafting_load[(4,0)] = 0.;
         }
 
         recycling_load *= RECYCLING_TIME;
