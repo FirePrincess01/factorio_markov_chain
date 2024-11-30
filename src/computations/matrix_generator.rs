@@ -28,3 +28,7 @@ pub fn crafting_matrix(quality: f64, productivity: f64, max_q: usize) -> Matrix5
 pub fn recycling_matrix(quality: f64, max_q: usize) -> Matrix5<f64> {
     return crafting_matrix(quality, -0.75, max_q);
 }
+
+pub fn common_only_distribution() -> Vector5<f64> {
+    return Vector5::<f64>::new(1., 0., 0., 0., 0.);
+}
