@@ -82,7 +82,7 @@ impl RecyclingLoop {
     pub fn calculate_load(&self, input: Vector5<f64>, is_ingredient: bool) -> (Vector5<f64>, f64) {
         let shift_index = if is_ingredient { 0 } else { 5 };
         const ERROR_TOLERANCE: f64 = 0.0001;
-        // recycler reverses recipies at 16 times the speed.
+        // recycler reverses recipes at 16 times the speed.
         const RECYCLING_TIME: f64 = 1. / 16.;
         const MAX_LOOPS: usize = 100;
         let input_quantity = input.sum();
