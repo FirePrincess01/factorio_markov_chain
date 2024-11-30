@@ -13,7 +13,7 @@ fn squishing_matrix(min_q: usize, max_q: usize) -> Matrix5<f64> {
     for i in 0..5 {
         squish_squish[(std::cmp::min(i + min_q - 1, max_q - 1), i)] = 1.;
     }
-    return squish_squish;
+    squish_squish
 }
 
 /// Creates a transition matrix mapping an ingredient distribution to a product distribution
@@ -29,17 +29,17 @@ pub fn crafting_matrix(quality: f64, productivity: f64, max_q: usize) -> Matrix5
         craft_craft.set_column(i, &(squish_squish * col_q));
     }
     craft_craft *= 1. + productivity;
-    return craft_craft;
+    craft_craft
 }
 
 /// Creates a transition matrix mapping a product distribution to an ingredient distribution
 /// It features quality given as a ratio of 1
 /// max_q states the maximum researched quality
 pub fn recycling_matrix(quality: f64, max_q: usize) -> Matrix5<f64> {
-    return crafting_matrix(quality, -0.75, max_q);
+    crafting_matrix(quality, -0.75, max_q)
 }
 
 /// returns a distribution of only common items.
 pub fn common_only_distribution() -> Vector5<f64> {
-    return Vector5::<f64>::new(1., 0., 0., 0., 0.);
+    Vector5::<f64>::new(1., 0., 0., 0., 0.)
 }

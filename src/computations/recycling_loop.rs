@@ -72,7 +72,7 @@ impl RecyclingLoop {
         }
 
         let terminal_distribution = self.limit_loop * input_expanded;
-        return terminal_distribution[(self.target_index, 0)];
+        terminal_distribution[(self.target_index, 0)]
     }
 
     /// Calculates the needed crafting speed for each step for a given input.
@@ -116,6 +116,6 @@ impl RecyclingLoop {
 
         recycling_load *= RECYCLING_TIME;
 
-        return (crafting_load, recycling_load);
+        (crafting_load, recycling_load)
     }
 }
