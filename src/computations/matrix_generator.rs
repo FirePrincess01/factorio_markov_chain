@@ -1,5 +1,5 @@
 //! matrix_generator
-//! 
+//!
 //! utility functions to generate matrices needed for recycling loops.
 
 use nalgebra::{Matrix5, Vector5};

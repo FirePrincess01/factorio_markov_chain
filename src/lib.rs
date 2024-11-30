@@ -1,5 +1,5 @@
 #![warn(clippy::all, rust_2018_idioms)]
 
-mod computations;
 mod app;
+mod computations;
 pub use app::FactorioMarkovChainApp;
