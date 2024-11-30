@@ -4,6 +4,7 @@
 //! Tries to separate the functionality similar to the the Model View Viewmodel pattern
 
 mod bar_chart;
+mod upcycle_loop;
 mod color_palette;
 
 pub use bar_chart::*;
