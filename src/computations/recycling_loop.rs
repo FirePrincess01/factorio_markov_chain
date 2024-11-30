@@ -77,7 +77,7 @@ impl RecyclingLoop {
 
     /// Calculates the needed crafting speed for each step for a given input.
     /// input is a quality distribution over the 5 quality levels.
-    /// is_ingredient determines wether ingredients or the product is fed to the loop
+    /// is_ingredient determines whether ingredients or the product is fed to the loop
     /// A 1 in the input is the rate the input is produced/consumed by one crafting machine of speed 1
     pub fn calculate_load(&self, input: Vector5<f64>, is_ingredient: bool) -> (Vector5<f64>, f64) {
         let shift_index = if is_ingredient { 0 } else { 5 };
